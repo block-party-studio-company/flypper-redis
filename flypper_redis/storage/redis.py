@@ -24,7 +24,15 @@ class RedisStorage(AbstractStorage):
     def upsert(self, flag_data: UnversionedFlagData) -> Flag:
         version = self._redis.incr(self._version_key)
         flag_name = flag_data["name"]
-        data = { **flag_data, "updated_at": time(), "version": version }
+        data: FlagData = {
+            "name": flag_data["name"],
+            "deleted": flag_data["deleted"],
+            "enabled": flag_data["enabled"],
+            "enabled_for_actors": flag_data["enabled_for_actors"],
+            "enabled_for_percentage_of_actors": flag_data["enabled_for_percentage_of_actors"],
+            "updated_at": time(),
+            "version": version,
+        }
         self._redis.set(self._flag_key(flag_name), dumps(data))
         self._redis.zadd(self._history_key, {flag_name: version})
         return Flag(data=cast(FlagData, data))
