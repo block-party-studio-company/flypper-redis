@@ -37,5 +37,9 @@ class RedisStorage(AbstractStorage):
         self._redis.zadd(self._history_key, {flag_name: version})
         return Flag(data=cast(FlagData, data))
 
+    def delete(self, flag_name: str) -> None:
+        self._redis.delete(self._flag_key(flag_name))
+        self._redis.zrem(self._history_key, flag_name)
+
     def _flag_key(self, flag_name):
         return f"{self._flag_prefix}:{flag_name}"

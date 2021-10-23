@@ -32,6 +32,12 @@ def test_list_with_version():
     assert len(storage.list(version__gt=0)) == 1
     assert len(storage.list(version__gt=1)) == 0
 
+def test_delete():
+    storage = empty_storage()
+    storage.upsert(flag_data("a"))
+    storage.delete(flag_name="a")
+    assert len(storage.list()) == 0
+
 
 def empty_storage():
     # Cleaning up redis
