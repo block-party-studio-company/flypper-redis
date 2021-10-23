@@ -34,15 +34,18 @@ version = "0.1.0"
 description = ""
 category = "main"
 optional = false
-python-versions = ">=3.7,<4.0"
+python-versions = "^3.7"
+develop = false
 
 [package.dependencies]
-Jinja2 = ">=3.0.2,<4.0.0"
-Werkzeug = ">=2.0.2,<3.0.0"
+Jinja2 = "^3.0.0"
+Werkzeug = "^2.0.0"
 
 [package.source]
-type = "file"
-url = "../flypper/dist/flypper-0.1.0.tar.gz"
+type = "git"
+url = "https://github.com/nicoolas25/flypper.git"
+reference = "main"
+resolved_reference = "8d903aa74b722e6a2d6ecd6f7d9bac6d3d10d162"
 
 [[package]]
 name = "importlib-metadata"
@@ -258,7 +261,7 @@ testing = ["pytest (>=4.6)", "pytest-checkdocs (>=2.4)", "pytest-flake8", "pytes
 [metadata]
 lock-version = "1.1"
 python-versions = "^3.7"
-content-hash = "10719dc79ca6940663a3d995131e159d87909f53307c22fb73d4440fbe4ad63b"
+content-hash = "56c6a5c1889fa185148529c41ac3ebc35eb3305c9606293500a67dd3e309a38a"
 
 [metadata.files]
 atomicwrites = [
@@ -273,9 +276,7 @@ colorama = [
     {file = "colorama-0.4.4-py2.py3-none-any.whl", hash = "sha256:9f47eda37229f68eee03b24b9748937c7dc3868f906e8ba69fbcbdd3bc5dc3e2"},
     {file = "colorama-0.4.4.tar.gz", hash = "sha256:5941b2b48a20143d2267e95b1c2a7603ce057ee39fd88e7329b0c292aa16869b"},
 ]
-flypper = [
-    {file = "flypper-0.1.0.tar.gz", hash = "sha256:3c592ef415c3fff0344fa2b540b89f69fc4465f7f4f81636bcb85a65e9bbb6db"},
-]
+flypper = []
 importlib-metadata = [
     {file = "importlib_metadata-4.8.1-py3-none-any.whl", hash = "sha256:b618b6d2d5ffa2f16add5697cf57a46c76a56229b0ed1c438322e4e95645bd15"},
     {file = "importlib_metadata-4.8.1.tar.gz", hash = "sha256:f284b3e11256ad1e5d03ab86bb2ccd6f5339688ff17a4d797a0fe7df326f23b1"},

@@ -11,7 +11,7 @@ packages = [
 
 [tool.poetry.dependencies]
 python = "^3.7"
-flypper = { path = "../flypper/dist/flypper-0.1.0.tar.gz" }
+flypper = { git = "https://github.com/nicoolas25/flypper.git", branch = "main" }
 redis = "^3.5.3"
 
 [tool.poetry.dev-dependencies]
