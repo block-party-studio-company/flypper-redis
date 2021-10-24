@@ -16,10 +16,18 @@ class RedisStorage(AbstractStorage):
 
     def list(self, version__gt: int = 0) -> List[Flag]:
         flag_names = self._redis.zrange(self._history_key, version__gt, -1)
-        flag_keys = [self._flag_key(flag_name.decode("UTF-8")) for flag_name in flag_names]
-        flag_jsons = (flag_json for flag_json in self._redis.mget(flag_keys) if flag_json)
-        flag_datas = (cast(FlagData, loads(flag_json)) for flag_json in flag_jsons)
-        return [Flag(data=flag_data) for flag_data in flag_datas]
+
+        # Don't try to call Redis if there is no flag name
+        if not flag_names:
+            return []
+
+        return [
+            Flag(data=cast(FlagData, loads(flag_json)))
+            for flag_json in self._redis.mget(
+                [self._flag_key(flag_name.decode("UTF-8")) for flag_name in flag_names]
+            )
+            if flag_json
+        ]
 
     def upsert(self, flag_data: UnversionedFlagData) -> Flag:
         version = self._redis.incr(self._version_key)
