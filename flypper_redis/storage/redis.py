@@ -24,7 +24,7 @@ class RedisStorage(AbstractStorage):
         return [
             Flag(data=cast(FlagData, loads(flag_json)))
             for flag_json in self._redis.mget(
-                [self._flag_key(flag_name.decode("UTF-8")) for flag_name in flag_names]
+                [self._flag_key(flag_name) for flag_name in flag_names]
             )
             if flag_json
         ]
